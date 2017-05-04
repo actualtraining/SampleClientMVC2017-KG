@@ -37,6 +37,21 @@ namespace SampleCilentMVC.Services
             }
         }
 
+        public async Task<Kategori> GetById(string id)
+        {
+            Kategori kategori;
+            var response = await client.GetAsync("api/Kategori/" + id);
+            if (response.IsSuccessStatusCode)
+            {
+                kategori = await response.Content.ReadAsAsync<Kategori>();
+                return kategori;
+            }
+            else
+            {
+                return new Kategori() { };
+            }
+        }
+
         public async Task Insert(Kategori obj)
         {
             var response = await client.PostAsJsonAsync("api/Kategori", obj);
@@ -45,6 +60,28 @@ namespace SampleCilentMVC.Services
                 var strError = await response.Content.ReadAsStringAsync();
                 var errResult = JsonConvert.DeserializeObject<ErrorResult>(strError);
                 throw new Exception(errResult.Message);  
+            }
+        }
+
+        public async Task Update(Kategori obj)
+        {
+            var response = await client.PutAsJsonAsync("api/Kategori", obj);
+            if(!response.IsSuccessStatusCode)
+            {
+                var strError = await response.Content.ReadAsStringAsync();
+                var errResult = JsonConvert.DeserializeObject<ErrorResult>(strError);
+                throw new Exception(errResult.Message);
+            }
+        }
+
+        public async Task Delete(string id)
+        {
+            var response = await client.DeleteAsync("api/Kategori/" + id);
+            if(!response.IsSuccessStatusCode)
+            {
+                var strError = await response.Content.ReadAsStringAsync();
+                var errResult = JsonConvert.DeserializeObject<ErrorResult>(strError);
+                throw new Exception(errResult.Message);
             }
         }
     }

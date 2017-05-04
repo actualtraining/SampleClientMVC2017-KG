@@ -53,8 +53,10 @@ namespace SampleCilentMVC.Controllers
         }
 
         // GET: Kategori/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
+
+
             return View();
         }
 
