@@ -17,7 +17,10 @@ namespace SampleCilentMVC.Controllers
         {
             BarangServices barangServices = new BarangServices();
             var models = await barangServices.GetAllBarangKategoriMap();
-            ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
+
+            if (TempData["SuccessMessage"] != null)
+                ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
+
             return View(models);
         }
 
@@ -43,14 +46,14 @@ namespace SampleCilentMVC.Controllers
                 try
                 {
                     var result = await barangServices.Insert(obj);
-                   
+
                     TempData["SuccessMessage"] = "<span class='alert alert-success'>" + result + "</span>";
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
                 {
                     ViewBag.Error = "<span class='alert alert-danger'>" + ex.Message + "</span>";
-                    
+
                 }
             }
             return View();

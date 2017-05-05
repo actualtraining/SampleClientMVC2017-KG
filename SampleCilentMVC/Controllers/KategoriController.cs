@@ -36,12 +36,18 @@ namespace SampleCilentMVC.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Kategori obj)
         {
-            KategoriServices kategoriService = new KategoriServices();
+            string token = string.Empty;
+            if (Session["token"] != null)
+            {
+                token = Session["token"].ToString();
+            }
+
+            ServicesBackend.KategoriServices kategoriService = new ServicesBackend.KategoriServices();
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await kategoriService.Insert(obj);
+                    await kategoriService.Insert(obj,token);
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)

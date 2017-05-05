@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+<br />
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <label for="username">Username :</label><br />
+        <input type="text" name="username" /><br /><br />
+        <label for="password">Password</label><br />
+        <input type="password" name="password" /><br /><br />
+        <input type="submit" value="Submit" class="btn btn-default" />
+    </fieldset>
+}
+
+<br />
+@Html.Raw(ViewBag.Error)
+

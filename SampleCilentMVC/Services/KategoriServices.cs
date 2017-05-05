@@ -52,7 +52,7 @@ namespace SampleCilentMVC.Services
             }
         }
 
-        public async Task Insert(Kategori obj)
+        /*public async Task Insert(Kategori obj)
         {
             var response = await client.PostAsJsonAsync("api/Kategori", obj);
             if(!response.IsSuccessStatusCode)
@@ -61,7 +61,7 @@ namespace SampleCilentMVC.Services
                 var errResult = JsonConvert.DeserializeObject<ErrorResult>(strError);
                 throw new Exception(errResult.Message);  
             }
-        }
+        }*/
 
         public async Task Update(Kategori obj)
         {
