@@ -4,14 +4,20 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using BO;
+using ServicesBackend;
+using System.Threading.Tasks;
+
 namespace SampleCilentMVC.Controllers
 {
     public class BarangController : Controller
     {
         // GET: Barang
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            BarangServices barangServices = new BarangServices();
+            var models = await barangServices.GetAllBarangKategoriMap();
+            return View(models);
         }
 
         // GET: Barang/Details/5
