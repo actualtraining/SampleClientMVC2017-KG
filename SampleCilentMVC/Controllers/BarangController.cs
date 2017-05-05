@@ -17,6 +17,7 @@ namespace SampleCilentMVC.Controllers
         {
             BarangServices barangServices = new BarangServices();
             var models = await barangServices.GetAllBarangKategoriMap();
+            ViewBag.SuccessMessage = TempData["SuccessMessage"].ToString();
             return View(models);
         }
 
@@ -34,18 +35,25 @@ namespace SampleCilentMVC.Controllers
 
         // POST: Barang/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public async Task<ActionResult> Create(Barang obj)
         {
-            try
+            BarangServices barangServices = new BarangServices();
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                try
+                {
+                    var result = await barangServices.Insert(obj);
+                   
+                    TempData["SuccessMessage"] = "<span class='alert alert-success'>" + result + "</span>";
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.Error = "<span class='alert alert-danger'>" + ex.Message + "</span>";
+                    
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // GET: Barang/Edit/5

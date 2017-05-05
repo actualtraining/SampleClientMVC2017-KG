@@ -8,7 +8,9 @@
 <br />
 
 @Html.ActionLink("Tambah Barang", "Create", "Barang")
-<br />
+<br /><br />
+
+@Html.Raw(ViewBag.SuccessMessage)
 
 <table class="table table-striped">
     <thead>
@@ -39,3 +41,4 @@
         }
     </tbody>
 </table>
+
