@@ -1,0 +1,13 @@
+﻿@model BO.Kategori
+@{
+    ViewBag.Title = "Delete Kategori";
+}
+
+<h2>Delete Kategori</h2>
+<br />
+<p>Apakah anda yakin akan mendelete data kategori @Model.NamaKategori ?</p>
+@using (Html.BeginForm("Delete", "Kategori", FormMethod.Post))
+{
+    <input type="hidden" name="id" value="@Model.KategoriID" />
+    <input type="submit" value="Delete" class="btn btn-danger" />
+}

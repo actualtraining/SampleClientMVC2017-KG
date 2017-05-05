@@ -53,47 +53,56 @@ namespace SampleCilentMVC.Controllers
         }
 
         // GET: Kategori/Edit/5
-        public ActionResult Edit(string id)
+        public async Task<ActionResult> Edit(string id)
         {
+            KategoriServices kategoriService = new KategoriServices();
+            var model = await kategoriService.GetById(id);
 
-
-            return View();
+            return View(model);
         }
 
         // POST: Kategori/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public async Task<ActionResult> Edit(Kategori obj)
         {
-            try
+            KategoriServices kategoriService = new KategoriServices();
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                try
+                {
+                    await kategoriService.Update(obj);
+                    return RedirectToAction("Index");
+                }
+                catch(Exception ex)
+                {
+                    ViewBag.Error = "<span class='alert alert-danger'>" + ex.Message + "</span>";
+                }
             }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Kategori/Delete/5
-        public ActionResult Delete(int id)
-        {
             return View();
         }
 
-        // POST: Kategori/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // GET: Kategori/Delete/5
+        public async Task<ActionResult> Delete(string id)
         {
+            KategoriServices kategoriService = new KategoriServices();
+            var model = await kategoriService.GetById(id);
+
+            return View(model);
+        }
+
+        // POST: Kategori/Delete/5
+        [HttpPost,ActionName("Delete")]
+        public async Task<ActionResult> DeletePost(string id)
+        {
+            KategoriServices kategoriService = new KategoriServices();
             try
             {
-                // TODO: Add delete logic here
-
+                await kategoriService.Delete(id);               
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
+                ViewBag.Error = "<span class='alert alert-danger'>" + ex.Message + "</span>";
                 return View();
             }
         }
